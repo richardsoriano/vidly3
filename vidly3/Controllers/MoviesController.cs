@@ -26,6 +26,11 @@ namespace vidly3.Controllers
             var movies = GetMovies();
             return View(movies);
         }
+        public IActionResult Details(int id)
+        {
+            //var movie = new Movie
+            return View();
+        }
         public IActionResult Edit(int id) { return Content("id=" + id); }
         private IEnumerable<Movie> GetMovies()
         {
