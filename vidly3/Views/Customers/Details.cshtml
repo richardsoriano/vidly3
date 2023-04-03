@@ -7,5 +7,9 @@
 <h1>Details</h1>
 <ul>
     <li>@Model.Name</li>
-    <li>@Model.Birthdate</li>
+    @if (Model.Birthdate.HasValue)
+    {
+        <li>@Model.Birthdate.Value.ToShortDateString()</li>
+    }
+    
 </ul>
