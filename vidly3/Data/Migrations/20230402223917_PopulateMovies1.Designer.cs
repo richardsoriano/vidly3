@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vidly3.Data;
 
@@ -11,9 +12,10 @@ using vidly3.Data;
 namespace vidly3.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230402223917_PopulateMovies1")]
+    partial class PopulateMovies1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,7 +303,10 @@ namespace vidly3.Data.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte>("GenreTypeId")
+                    b.Property<int>("GenreTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("GenreTypeId1")
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Name")
@@ -316,7 +321,7 @@ namespace vidly3.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GenreTypeId");
+                    b.HasIndex("GenreTypeId1");
 
                     b.ToTable("Movies");
                 });
@@ -387,7 +392,7 @@ namespace vidly3.Data.Migrations
                 {
                     b.HasOne("vidly3.Models.GenreType", "GenreType")
                         .WithMany()
-                        .HasForeignKey("GenreTypeId")
+                        .HasForeignKey("GenreTypeId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

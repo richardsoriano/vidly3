@@ -21,6 +21,10 @@ namespace vidly3.Controllers
             var customers = _context.Customers.Include(c=>c.MembershipType).ToList();
             return View(customers);
         }
+        public IActionResult New()
+        {
+            return View();
+        }
         public ActionResult Details(int id)
         {
             var customers =_context.Customers.SingleOrDefault(c => c.Id == id);
