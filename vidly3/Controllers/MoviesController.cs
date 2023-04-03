@@ -34,16 +34,38 @@ namespace vidly3.Controllers
         }
         public IActionResult Index()
         {
-            var movies = _context.Movies;
+            //var movies = _context.Movies;
+            var movies = GetMovies();
             return View(movies);
         }
         public IActionResult Details(int id)
         {
-            var movies = _context.Movies.SingleOrDefault(c => c.Id == id);
-            return View(movies);
+            //var movies = _context.Movies.SingleOrDefault(c => c.Id == id);
+            //return View(movies);
+            return View();
         }
         public IActionResult Edit(int id) { return Content("id=" + id); }
-       
+        private IEnumerable<Movie> GetMovies()
+        {
+            return new List<Movie>()
+            {
+                new Movie
+                {
+                    Id = 1,
+                    Name="Shrek 2"
+                },
+                new Movie
+                {
+                    Id = 2,
+                    Name="Scream 5"
+                },
+                new Movie
+                {
+                    Id = 3,
+                    Name ="Pinocchio"
+                }
+            };
+        }
 
     }
 }

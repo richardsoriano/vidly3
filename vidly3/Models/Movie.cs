@@ -7,5 +7,8 @@
         public DateTime ReleaseDate { get; set; }
         public DateTime AddedDate { get; set; }
         public int NumberInStock { get; set; }
+        public GenreType GenreType { get; set; }
+        public byte GenreTypeId { get; set; }
+
     }
 }

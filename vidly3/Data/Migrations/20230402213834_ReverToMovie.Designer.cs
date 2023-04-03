@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vidly3.Data;
 
@@ -11,9 +12,10 @@ using vidly3.Data;
 namespace vidly3.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230402213834_ReverToMovie")]
+    partial class ReverToMovie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,20 +255,6 @@ namespace vidly3.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("vidly3.Models.GenreType", b =>
-                {
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GenreType");
-                });
-
             modelBuilder.Entity("vidly3.Models.MembershipType", b =>
                 {
                     b.Property<byte>("Id")
@@ -301,9 +289,6 @@ namespace vidly3.Data.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte>("GenreTypeId")
-                        .HasColumnType("tinyint");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -315,8 +300,6 @@ namespace vidly3.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GenreTypeId");
 
                     b.ToTable("Movies");
                 });
@@ -381,17 +364,6 @@ namespace vidly3.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("MembershipType");
-                });
-
-            modelBuilder.Entity("vidly3.Models.Movie", b =>
-                {
-                    b.HasOne("vidly3.Models.GenreType", "GenreType")
-                        .WithMany()
-                        .HasForeignKey("GenreTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GenreType");
                 });
 #pragma warning restore 612, 618
         }
