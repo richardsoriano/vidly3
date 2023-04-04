@@ -40,8 +40,8 @@ namespace vidly3.Controllers
         }
         public IActionResult Details(int id)
         {
-            //var movies = _context.Movies.SingleOrDefault(c => c.Id == id);
-            //return View(movies);
+            var movies = _context.Movies.SingleOrDefault(c => c.Id == id);
+            return View(movies);
             return View();
         }
         public IActionResult Edit(int id) { return Content("id=" + id); }
