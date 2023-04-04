@@ -60,7 +60,7 @@ namespace vidly3.Controllers
                 customerInDb.IsSubscribedToNewsletter= customer.IsSubscribedToNewsletter;
                 customerInDb.MembershipTypeId = customer.MembershipTypeId;
                 customerInDb.Birthdate= customer.Birthdate;
-                TryUpdateModelAsync(customerInDb);
+                
             }
 
             _context.SaveChanges();

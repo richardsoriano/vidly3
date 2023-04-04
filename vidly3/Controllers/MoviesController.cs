@@ -34,8 +34,8 @@ namespace vidly3.Controllers
         }
         public IActionResult Index()
         {
-            //var movies = _context.Movies;
-            var movies = GetMovies();
+            var movies = _context.Movies;
+            //var movies = GetMovies();
             return View(movies);
         }
         public IActionResult Details(int id)
@@ -44,7 +44,50 @@ namespace vidly3.Controllers
             return View(movies);
             return View();
         }
-        public IActionResult Edit(int id) { return Content("id=" + id); }
+        public IActionResult New()
+        {
+            var genreTypes = _context.GenreTypes.ToList();
+            var viewModel = new MovieFormViewModel
+            {
+                GenreTypes = genreTypes
+            };
+            
+            return View("MovieForm",viewModel);
+        }
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+            if(movie.Id == 0)
+            {
+                _context.Movies.Add(movie);
+            }
+            else
+            {
+                var movieInDb = _context.Movies.Single(m=> m.Id == movie.Id);
+                movieInDb.Name = movie.Name;
+                movieInDb.ReleaseDate= movie.ReleaseDate;
+                movieInDb.AddedDate = movie.AddedDate;
+                movieInDb.NumberInStock= movie.NumberInStock;
+
+            }
+            
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
+        public IActionResult Edit(int id) {
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            var viewModel = new MovieFormViewModel
+            {
+                Movie = movie,
+                GenreTypes = _context.GenreTypes.ToList()
+            };
+            return View("MovieForm", viewModel);
+        }
         private IEnumerable<Movie> GetMovies()
         {
             return new List<Movie>()
