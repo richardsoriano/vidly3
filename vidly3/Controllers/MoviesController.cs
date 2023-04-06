@@ -57,6 +57,15 @@ namespace vidly3.Controllers
         [HttpPost]
         public ActionResult Save(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel
+                {
+                    Movie = movie,
+                    GenreTypes = _context.GenreTypes.ToList()
+                };
+                return View("MovieForm",viewModel);
+            }
             if(movie.Id == 0)
             {
                 _context.Movies.Add(movie);
@@ -88,27 +97,27 @@ namespace vidly3.Controllers
             };
             return View("MovieForm", viewModel);
         }
-        private IEnumerable<Movie> GetMovies()
-        {
-            return new List<Movie>()
-            {
-                new Movie
-                {
-                    Id = 1,
-                    Name="Shrek 2"
-                },
-                new Movie
-                {
-                    Id = 2,
-                    Name="Scream 5"
-                },
-                new Movie
-                {
-                    Id = 3,
-                    Name ="Pinocchio"
-                }
-            };
-        }
+        //private IEnumerable<Movie> GetMovies()
+        //{
+        //    return new List<Movie>()
+        //    {
+        //        new Movie
+        //        {
+        //            Id = 1,
+        //            Name="Shrek 2"
+        //        },
+        //        new Movie
+        //        {
+        //            Id = 2,
+        //            Name="Scream 5"
+        //        },
+        //        new Movie
+        //        {
+        //            Id = 3,
+        //            Name ="Pinocchio"
+        //        }
+        //    };
+        //}
 
     }
 }
